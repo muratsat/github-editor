@@ -11,9 +11,10 @@ START_DATE="$1"
 NUM_DAYS="$2"
 REPO_PATH="$3"
 GITHUB_USERNAME="$4"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-mkdir -p "$REPO_PATH"
-cd "$REPO_PATH" || exit 1
+mkdir -p $SCRIPT_DIR/"$REPO_PATH"
+cd "$SCRIPT_DIR/$REPO_PATH" || exit 1
 git init
 git branch -m main
 git config --local user.name "$GITHUB_USERNAME"
@@ -31,17 +32,16 @@ increment_date() {
 }
 
 current_date="$START_DATE"
-exit 0
 
 # Generate commits
 for ((i=0; i<NUM_DAYS; i++)); do
     # check if date is true in a file called "2025.json" using jq
     # json looks like this: { "2025-01-01": false, "2025-01-02": true, ... }
     # if date is true, commit, else skip
-    to_commit=$(jq -r --arg date "$current_date" '.[$date] // false' ~/Desktop/2025.json)
+    to_commit=$(jq -r --arg date "$current_date" '.[$date] // false' $SCRIPT_DIR/dates.json)
     if [ "$to_commit" = true ]; then
       # Add README with current date
-      printf "Commit for $current_date \n" >> README.md
+      printf "Commit for $current_date\n\n" >> README.md
 
       # Stage changes
       git add README.md
