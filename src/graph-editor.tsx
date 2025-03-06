@@ -77,7 +77,7 @@ const ContributionGridEditor = ({ year = new Date().getFullYear() }) => {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
-    <div className="p-4 bg-gray-50 w-full flex flex-col gap-3">
+    <div className="p-4 text-white bg-[#0d1117] w-full flex flex-col gap-3">
       <div className="flex items-center mb-4">
         <h2 className="text-xl font-bold">{year} Contribution Grid</h2>
       </div>
@@ -103,8 +103,8 @@ const ContributionGridEditor = ({ year = new Date().getFullYear() }) => {
               {row.map((colored, colIdx) => (
                 <div
                   key={colIdx}
-                  className={`w-[14px] h-[14px] ${
-                    colored ? "bg-green-500" : "bg-gray-200"
+                  className={`w-[14px] h-[14px] rounded-xs ${
+                    colored ? "bg-[#39d353]" : "bg-[#161b22]"
                   }`}
                   onMouseEnter={() => handleMouseEnter(rowIdx, colIdx)}
                   onMouseDown={() => handleMouseDown(rowIdx, colIdx)}
@@ -116,11 +116,11 @@ const ContributionGridEditor = ({ year = new Date().getFullYear() }) => {
         </div>
       </div>
 
-      <div className="flex max-w-xl flex-col gap-4 p-4 bg-white shadow-md rounded-lg">
+      <div className="flex max-w-md flex-col gap-4 p-4 bg-gray-800 text-white shadow-md rounded-lg">
         {/* Date Display with Subtle Styling */}
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-500">Hovered Date:</span>
-          <span className="text-sm font-medium text-gray-800">
+          <span className="text-sm font-medium text-gray-400">
             {dateLabel || "No date selected"}
           </span>
         </div>
@@ -150,18 +150,18 @@ const ContributionGridEditor = ({ year = new Date().getFullYear() }) => {
 
         {/* Result Display with Improved Layout */}
         {resultJson && (
-          <div className="bg-gray-50 border border-gray-200 rounded-md p-3 relative">
+          <div className="bg-gray-600 border border-gray-500 rounded-md p-3 text-gray-50 flex flex-col gap-2">
             {/* Scrollable Pre with Maximum Height */}
-            <pre className="text-xs text-gray-700 max-h-48 overflow-auto custom-scrollbar">
+            <pre className="text-xs text-gray-100 max-h-48 overflow-hidden custom-scrollbar">
               {resultJson}
             </pre>
 
             {/* Copy to Clipboard Button */}
             <button
               onClick={() => navigator.clipboard.writeText(resultJson)}
-              className="absolute top-2 right-2 
-          bg-gray-200 text-gray-700 
-          hover:bg-gray-300 
+              className="
+          bg-gray-500 text-gray-200 
+          hover:bg-gray-400 
           p-2 rounded-md 
           transition-colors duration-300 
           flex items-center space-x-1 
